@@ -11,7 +11,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3" style="background: #e3dcd0">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Endava.iAcademy</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index"><img src="~/pictures/Endava Academy.gif" alt="Endava.iAcademy" style="height: 80px" /></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -23,6 +23,17 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="navbar-left" style="margin-top:8px;">
+                                @using (Html.BeginForm("Index", "Search", FormMethod.Get))
+                                {
+                                    <ul class="nav navbar-nav">
+                                        <li>@Html.TextBox("id", ViewBag.CurrentFilter as string)</li>
+                                        <li><input type="submit" value="Search" /></li>
+                                    </ul>
+                                }
+                            </div>
                         </li>
                     </ul>
                 </div>

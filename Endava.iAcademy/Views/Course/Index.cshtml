@@ -1,0 +1,17 @@
+﻿@model Domain.Course
+@{
+    ViewData["Title"] = "Course Page";
+}
+<h1>Course Name: @Model.Title</h1>
+<br/><br/>
+    <div class="justify-content-center" style="margin: 0 auto">
+        @foreach (var lesson in Model.Lessons)
+        {
+
+            <h2>@lesson.Title</h2>
+            <p>@lesson.Description</p>
+            <iframe width="560" height="315" src="@lesson.Link" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <br /><br />
+
+        }
+     <div/>

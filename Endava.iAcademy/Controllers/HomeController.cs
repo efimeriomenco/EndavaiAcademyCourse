@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Endava.iAcademy.Models;
+using Repository;
+using Endava.iAcademy.ViewModels;
 
 namespace Endava.iAcademy.Controllers
 {
@@ -20,7 +22,11 @@ namespace Endava.iAcademy.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var courseRepository = new CourseRepository();
+            var courses = courseRepository.GetAllCourses();
+            var coursesViewModel = new CoursesViewModel();
+            coursesViewModel.Courses = courses;
+            return View(coursesViewModel);
         }
 
         public IActionResult Privacy()

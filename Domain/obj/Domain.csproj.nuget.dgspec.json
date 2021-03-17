@@ -1,24 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\INTERNSHIP 2021\\Endava.iAcademy\\Endava.iAcademy\\Domain\\Domain.csproj": {}
+    "C:\\Users\\vasil\\source\\repos\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "C:\\INTERNSHIP 2021\\Endava.iAcademy\\Endava.iAcademy\\Domain\\Domain.csproj": {
+    "C:\\Users\\vasil\\source\\repos\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\INTERNSHIP 2021\\Endava.iAcademy\\Endava.iAcademy\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\vasil\\source\\repos\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\INTERNSHIP 2021\\Endava.iAcademy\\Endava.iAcademy\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\vpascal\\.nuget\\packages\\",
-        "outputPath": "C:\\INTERNSHIP 2021\\Endava.iAcademy\\Endava.iAcademy\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\vasil\\source\\repos\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\vasil\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\vasil\\source\\repos\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
-          "C:\\Users\\vpascal\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\vasil\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -31,6 +32,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -42,6 +44,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "imports": [
             "net461",
             "net462",
@@ -52,18 +55,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.2, 3.1.2]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
