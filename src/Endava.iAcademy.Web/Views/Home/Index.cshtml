@@ -1,0 +1,38 @@
+﻿@model Endava.iAcademy.Web.Models.CoursesViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1 class="font-weight-light display-3">Courses:</h1>
+<br />
+
+@{
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "Title",
+        Value = "Title",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "Date",
+        Value = "Date",
+    });
+}
+
+
+<label for="SortBy">Sort by: </label>
+<select name="SortBy" id="SortBy">
+    <option value="Title">Title</option>
+    <option value="Date">Date</option>
+    <option value="Rating">Rating</option>
+</select>
+
+@foreach (var course in Model.Courses)
+{
+    <ul>
+        <li><a style="font-size: 30px" href="@Url.Action("Index", "Course", new { id = course.Id })">@course.Title</a></li>
+    </ul>
+}
+@*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
