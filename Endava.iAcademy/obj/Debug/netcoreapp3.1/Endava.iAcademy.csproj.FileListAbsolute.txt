@@ -700,3 +700,8 @@ C:\Users\vasil\source\repos\Endava.iAcademy\bin\Debug\netcoreapp3.1\Repository.d
 C:\Users\vasil\source\repos\Endava.iAcademy\bin\Debug\netcoreapp3.1\Repository.pdb
 C:\Users\vasil\source\repos\Endava.iAcademy\bin\Debug\netcoreapp3.1\Domain.pdb
 C:\Users\vasil\source\repos\Endava.iAcademy\obj\Debug\netcoreapp3.1\Razor\Views\Course\Index.cshtml.g.cs
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Endava.iAcademy\bin\Debug\netcoreapp3.1\Domain.dll
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Endava.iAcademy\bin\Debug\netcoreapp3.1\Repository.dll
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Endava.iAcademy\bin\Debug\netcoreapp3.1\Repository.pdb
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Endava.iAcademy\bin\Debug\netcoreapp3.1\Domain.pdb
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Endava.iAcademy\obj\Debug\netcoreapp3.1\Razor\Views\Course\Index.cshtml.g.cs

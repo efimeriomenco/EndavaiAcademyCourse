@@ -10,3 +10,15 @@ C:\Users\vasil\source\repos\Repository\obj\Debug\netcoreapp3.1\Repository.csproj
 C:\Users\vasil\source\repos\Repository\obj\Debug\netcoreapp3.1\Repository.csproj.CopyComplete
 C:\Users\vasil\source\repos\Repository\obj\Debug\netcoreapp3.1\Repository.dll
 C:\Users\vasil\source\repos\Repository\obj\Debug\netcoreapp3.1\Repository.pdb
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\bin\Debug\netcoreapp3.1\Repository.deps.json
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\bin\Debug\netcoreapp3.1\Repository.dll
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\bin\Debug\netcoreapp3.1\Repository.pdb
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\bin\Debug\netcoreapp3.1\Domain.dll
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\bin\Debug\netcoreapp3.1\Domain.pdb
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\obj\Debug\netcoreapp3.1\Repository.csprojAssemblyReference.cache
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\obj\Debug\netcoreapp3.1\Repository.AssemblyInfoInputs.cache
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\obj\Debug\netcoreapp3.1\Repository.AssemblyInfo.cs
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\obj\Debug\netcoreapp3.1\Repository.csproj.CoreCompileInputs.cache
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\obj\Debug\netcoreapp3.1\Repository.csproj.CopyComplete
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\obj\Debug\netcoreapp3.1\Repository.dll
+C:\INTERNSHIP 2021\Endava.iAcademy\Endava.iAcademy\Repository\obj\Debug\netcoreapp3.1\Repository.pdb

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "V9sevBlIOMnJq1JLZp2akAdsowK1VvobfIlAZp5K8UtHNI7iLVvDGz8SD9Mj3OQ1xXLPq28HalFnnXrrelv/ag==",
+  "dgSpecHash": "y2z8rAL2x5FlT2A+Jwia3LXeI8gAAgHIjxEkwsYpwADNFlU3s/AvSbNRX4hLQRL+UawWLxTVCfsB71oPzINBQg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\vasil\\source\\repos\\Repository\\Repository.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\INTERNSHIP 2021\\Endava.iAcademy\\Endava.iAcademy\\Repository\\Repository.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\vpascal\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+  ],
   "logs": []
 }
