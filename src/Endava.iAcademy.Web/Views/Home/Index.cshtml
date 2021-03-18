@@ -3,36 +3,37 @@
     ViewData["Title"] = "Home Page";
 }
 
-<h1 class="font-weight-light display-3">Courses:</h1>
+<br />
+<h1 style="top: 90px">Courses:</h1>
+
+<div class="form-group float-left">
+    <label for="SortBy">Sort by: </label>
+    <select class="form-control" id="exampleSelect1">
+        <option>Title</option>
+        <option>Date</option>
+        <option>Rating</option>
+    </select>
+</div>
+<br />
+<br />
+<br />
 <br />
 
-@{
-    List<SelectListItem> listItems = new List<SelectListItem>();
-    listItems.Add(new SelectListItem
-    {
-        Text = "Title",
-        Value = "Title",
-        Selected = true
-    });
-    listItems.Add(new SelectListItem
-    {
-        Text = "Date",
-        Value = "Date",
-    });
-}
+<div class="flex-lg-row" style="max-width: 100%">
+    <div style="display: flex; flex-flow: row wrap; justify-content: flex-start">
+        @foreach (var course in Model.Courses)
+        {
 
+            <a href="@Url.Action("Index", "Course", new { id = course.Id })" style="text-decoration:none;">
+                <div class="card text-white bg-info mb-3" style="max-width: 20rem;max-height: 11.5rem; min-height: 11.5rem;overflow: hidden;-ms-flex: auto;box-sizing: border-box;flex-basis: 33.33%;margin: 15px">
+                    <div class="card-body">
+                        <h4 class="card-title">@course.Title</h4>
+                        <p class="card-text flex-fill">@course.Description</p>
+                    </div>
+                </div>
+            </a>
 
-<label for="SortBy">Sort by: </label>
-<select name="SortBy" id="SortBy">
-    <option value="Title">Title</option>
-    <option value="Date">Date</option>
-    <option value="Rating">Rating</option>
-</select>
-
-@foreach (var course in Model.Courses)
-{
-    <ul>
-        <li><a style="font-size: 30px" href="@Url.Action("Index", "Course", new { id = course.Id })">@course.Title</a></li>
-    </ul>
-}
+        }
+    </div>
+</div>
 @*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
