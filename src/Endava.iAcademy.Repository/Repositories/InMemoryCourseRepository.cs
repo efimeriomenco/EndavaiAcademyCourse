@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Endava.iAcademy.Domain;
 
-namespace Endava.iAcademy.Repository
+namespace Endava.iAcademy.Repository.Repositories
 {
-    public class CourseRepository
+    public class InMemoryCourseRepository : ICourseRepository
     {
-        public CourseRepository()
-        {
+        private readonly List<Course> courses;
+        private readonly List<Category> categories;
+        
 
-        }
-
-        public List<Course> GetAllCourses()
+        public IEnumerable<Course> GetAll()
         {
             return new List<Course>
             {
                 new Course
                 {
-                    Id = 1,
+                    Id = 0,
                     Title = "C# Essentials",
                     Description = "A course about OOP and SOLID principles.",
                     Author = "Clint Eastwood",
@@ -28,7 +28,7 @@ namespace Endava.iAcademy.Repository
                         new Lesson
                         {
                             Title = "1. How to program in C# - BASICS",
-                            Description = "Course introduction",
+                            Description = "Courses introduction",
                             Link = "https://www.youtube.com/embed/pSiIHe2uZ2w"
                         },
                         new Lesson
@@ -59,7 +59,7 @@ namespace Endava.iAcademy.Repository
                 },
                 new Course
                 {
-                    Id = 2,
+                    Id = 0,
                     Title = "Microsoft Azure Fundamentals",
                     Description = "A full preparation for a free AZ-900 exam.",
                     Author = "Adam Marczak",
@@ -102,7 +102,7 @@ namespace Endava.iAcademy.Repository
                 },
                 new Course
                 {
-                    Id = 3,
+                    Id = 0,
                     Title = "Cryptocurrency Fundamentals",
                     Description = "Bitcoin is the first decentralized digital currency. All Bitcoin transactions are documented on a virtual ledger called the blockchain, which is accessible for everyone to see." +
                     "\nBitcoin gives you complete control over your money, unlike other assets you own which are regulated by banks and governments. As bitcoin gains more popularity, more and more places accept it as a payment method." +
@@ -147,7 +147,7 @@ namespace Endava.iAcademy.Repository
                 },
                 new Course
                 {
-                    Id = 4,
+                    Id = 0,
                     Title = "Adobe Illustrator for Beginners",
                     Description = "Hello Everyone. Finally I'm starting a new series, Adobe Illustrator for Beginners." +
                     "\nIn this cource will be covered all necessary topics for the successfull start in graphic design.",
@@ -195,9 +195,53 @@ namespace Endava.iAcademy.Repository
             };
         }
 
-        public void GetCourseByName()
+        public Course GetById(int id)
         {
+            return courses.SingleOrDefault(c => c.Id == id);
+        }
+        public IEnumerable<Course> FindCourses(string searchValue = null)
+        {
+            return from c in courses
+                where string.IsNullOrEmpty(searchValue) || c.Title.StartsWith(searchValue)
+                orderby c.Title
+                select c;
+        }
+
+
+        public Course Update(Course updatedCourse)
+        {
+            var course = courses.SingleOrDefault(c => c.Id == updatedCourse.Id);
+            if (course != null)
+            {
+                course.Title = updatedCourse.Title;
+                course.Author = updatedCourse.Author;
+                course.Date = updatedCourse.Date;
+                course.Description = updatedCourse.Description;
+                course.Rating = updatedCourse.Rating;
+                course.Price = updatedCourse.Price;
+                course.CategoryId = updatedCourse.CategoryId;
+            }
+
+            return course;
 
         }
+
+        public Course Add(Course newCourse)
+        {
+            courses.Add(newCourse);
+            newCourse.Id = courses.Max(c => c.Id) + 1;
+            return newCourse;
+        }
+
+        public bool Delete(int id)
+        {
+            var course = courses.FirstOrDefault(c => c.Id == id);
+            if (course == null) return false;
+            courses.Remove(course);
+
+            return true;
+            
+        }
+
     }
 }

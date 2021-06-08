@@ -1,0 +1,71 @@
+﻿@model Endava.iAcademy.Web.ViewModels.Courses.CourseEditViewModel
+
+<form method="post">
+
+    <input type="hidden" asp-for="@Model.Id" />
+    <input type="hidden" asp-for="@Model.Rating">
+
+    <div class="form-group">
+        <label asp-for="@Model.Title"></label>
+        <input asp-for="@Model.Title" class="form-control" />
+        <span class="text-danger" asp-validation-for="@Model.Title"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Author"></label>
+        <input asp-for="@Model.Author" class="form-control" />
+        <span class="text-danger" asp-validation-for="@Model.Author"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Price"></label>
+        <input asp-for="@Model.Price" class="form-control" />
+        <span class="text-danger" asp-validation-for="@Model.Price"></span>
+    </div>
+    <div class="">
+        <div class="form-group ">
+            <label asp-for="SelectedCategoryId" class="control-label">Category</label>
+            <select asp-for="SelectedCategoryId" asp-items="Model.Categories" class="form-control"></select>
+            <span asp-validation-for="SelectedCategoryId" class="text-danger"></span>
+        </div>
+        <div class="d-flex justify-content-center mt-3 ">
+            <a asp-controller="Category"
+               asp-action="Create">
+                <i class="fas fa-plus-circle"></i>
+            </a>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Date">Input the date:</label>
+        <input type="date" class="form-control" asp-for="@Model.Date">
+        <span class="text-danger" asp-validation-for="@Model.Date"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Description">Input the description:</label>
+        <textarea  class="form-control" asp-for="@Model.Description"></textarea>
+
+        <span class="text-danger" asp-validation-for="@Model.Description"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mb-2">Save</button>
+    @{
+        if (ViewBag.HasSucceeded ?? false)
+        {
+            <div id="course-success-msg" class="alert alert-success" role="alert">
+                Courses saved successfully
+            </div>
+        }
+    }
+
+  
+</form>
+
+@section Scripts
+{
+    <script type="text/javascript">
+        var container = $("#course-success-msg");
+        setTimeout(() => {
+            if(container != null)
+                container.fadeOut(() => {
+                    this.remove();
+                });
+        }, 3000);
+    </script>
+}

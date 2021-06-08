@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,8 +7,9 @@
     <title>@ViewData["Title"] - Endava.iAcademy</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 </head>
-<body style="background-color: #f5f9ff">
+<body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
@@ -22,19 +24,34 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home<span class="sr-only">(current)</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Course" asp-action="List">Courses</a>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                    <form class="form-inline my-2 my-lg-0" method="get" asp-controller="Course" asp-action="List">
+                        <input id="search-bar" class="form-control mr-sm-2" type="text" placeholder="Search" name="searchValue">
                         <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
                     </form>
+                    @{
+                        if (User.Identity.IsAuthenticated)
+                        {
+                            <div class="m-2">
+                                <span>Hello @User.Identity.Name</span>
+                            </div>
+                           
+                            <a asp-controller="Account" asp-action="Logout">Logout</a>
+                        }
+                        else
+                        {
+                            <a asp-controller="Account" asp-action="Login" class="m-2">Login</a>
+                        }
+                    }
                 </div>
             </div>
         </nav>
     </header>
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-3 pt-3">
+
             @RenderBody()
         </main>
     </div>
@@ -48,5 +65,12 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+    <script type="text/javascript">
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const searchValue = urlParams.get('searchValue');
+        $("#search-bar").val(searchValue);
+
+    </script>
 </body>
 </html>

@@ -1,0 +1,66 @@
+﻿@model List<Endava.iAcademy.Domain.Course>
+
+<div class="card-title d-flex justify-content-center">
+    <h1>All courses</h1>
+</div>
+<section class="d-flex justify-content-around select-option">
+    <div>
+        <form id="sort-by-form w-100" method="get" asp-controller="Course" asp-action="List">
+            <div class="form-group ">
+                <label for="sortBy">Sort by: </label>
+                <select class="form-control" name="sortBy" id="sort-bar">
+                    <option value="@nameof(Endava.iAcademy.Domain.Course.Title)">Title</option>
+                    <option value="@nameof(Endava.iAcademy.Domain.Course.Rating)">Rating</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    <div>
+        <form id="sort-by-form" method="get" asp-controller="Course" asp-action="List">
+            <div class="form-group ">
+                <label for="sortBy">Choose your category: </label>
+                <select class="form-control" name="sortBy" id="sort-bar">
+                    <option value="@nameof(Endava.iAcademy.Domain.Course.Title)">Title</option>
+                    <option value="@nameof(Endava.iAcademy.Domain.Course.Rating)">Rating</option>
+                </select>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+<div class="d-flex justify-content-center mt-3 ">
+    <a asp-controller="Course"
+       asp-action="Create">
+        <i class="fas fa-plus-circle h1"></i>
+    </a>
+</div>
+
+@foreach (var course in Model)
+{
+    <partial name="_CourseCard" model="course" />
+}
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+        (function () {
+            // Submit the form on change of select value
+            $(document).on("change",
+                "#sort-bar",
+                () => {
+                    // NB: Add all querystring parameters to the form from window.location.query
+                    // and then submit
+
+                    $("#sort-by-form").submit();
+                });
+
+            // Load the queryString sort by from url into select
+            const urlParams = new URLSearchParams(window.location.search);
+            const sortBy = urlParams.get('sortBy');
+            $("#sort-bar").val(sortBy);
+        })()
+    </script>
+}

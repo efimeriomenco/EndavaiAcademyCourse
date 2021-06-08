@@ -1,0 +1,13 @@
+﻿@model Endava.iAcademy.Web.ViewModels.Roles.CreateRoleViewModel;
+
+<form method="post" asp-validation-summary="All">
+    <div class="validation" asp-validation-summary="ModelOnly"></div>
+    <div>
+        <div>
+            <label asp-for="RoleName">Put Rolename</label><br />
+            <input type="text" asp-for="RoleName" />
+            <span asp-validation-for="RoleName" />
+        </div>
+        <input type="submit"/>
+        </div>
+</form>

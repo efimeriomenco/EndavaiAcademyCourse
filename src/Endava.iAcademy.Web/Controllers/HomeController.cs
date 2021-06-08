@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using Endava.iAcademy.Domain;
 using Endava.iAcademy.Repository;
-using Endava.iAcademy.Web.Models;
+using Endava.iAcademy.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -9,19 +11,13 @@ namespace Endava.iAcademy.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger  /*CoursesSort coursesSort*/)
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
-            var courseRepository = new CourseRepository();
-            var courses = courseRepository.GetAllCourses();
-            var coursesViewModel = new CoursesViewModel();
-            coursesViewModel.Courses = courses;
-            return View(coursesViewModel);
+            return View();
         }
 
         public IActionResult Privacy()

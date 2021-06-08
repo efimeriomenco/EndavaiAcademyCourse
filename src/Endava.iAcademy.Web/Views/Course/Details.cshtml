@@ -1,0 +1,33 @@
+﻿@using Endava.iAcademy.Domain
+@using Endava.iAcademy.Web.Controllers
+@using Endava.iAcademy.Web.ViewModels
+@model Endava.iAcademy.Web.ViewModels.Courses.CourseDetailsViewModel
+
+
+<div style="margin: auto; width: 65%;">
+    <h1>@Model.Title Courses</h1>
+    <text class="text-muted">
+        Author: <span style="font-style: oblique">@Model.Author</span> <br />
+        Date: <span style="font-style: oblique">@Model.Date.ToShortDateString() </span> <br />
+        Rating: <span style="font-style: oblique; color: limegreen">@Model.Rating</span> <br/>
+        Category <span style="font-style: oblique; color: limegreen">@(Model.CategoryName)</span> <br/>
+        Price: <span style="font-style: oblique; color: limegreen">@Model.Price$</span>
+       
+    </text>
+    <br /><br />
+    <h5>Courses description:</h5>
+    <p class="text-muted">@Model.Description</p>
+    <h2>Lessons:</h2>
+    @foreach (var lesson in Model.Lessons ??  new List<LessonViewModel>())
+    {
+
+        <h4>@lesson.Title</h4>
+        <p class="text-muted">@lesson.Description</p>
+        <iframe width="560" height="315" src="@lesson.Link" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <br /><br />
+
+    }
+</div>                 
+
+ 
+

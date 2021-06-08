@@ -1,39 +1,39 @@
-﻿@model Endava.iAcademy.Web.Models.CoursesViewModel
+﻿@model Endava.iAcademy.Web.ViewModels.Courses.CreateCourseViewModel
+@using Endava.iAcademy.Domain
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <br />
-<h1 style="top: 90px">Courses:</h1>
 
-<div class="form-group float-left">
-    <label for="SortBy">Sort by: </label>
-    <select class="form-control" id="exampleSelect1">
-        <option>Title</option>
-        <option>Date</option>
-        <option>Rating</option>
-    </select>
-</div>
-<br />
-<br />
-<br />
-<br />
-
-<div class="flex-lg-row" style="max-width: 100%">
-    <div style="display: flex; flex-flow: row wrap; justify-content: flex-start">
-        @foreach (var course in Model.Courses)
-        {
-
-            <a href="@Url.Action("Index", "Course", new { id = course.Id })" style="text-decoration:none;">
-                <div class="card text-white bg-info mb-3" style="max-width: 20rem;max-height: 11.5rem; min-height: 11.5rem;overflow: hidden;-ms-flex: auto;box-sizing: border-box;flex-basis: 33.33%;margin: 15px">
-                    <div class="card-body">
-                        <h4 class="card-title">@course.Title</h4>
-                        <p class="card-text flex-fill">@course.Description</p>
-                    </div>
-                </div>
-            </a>
-
-        }
+<div class="d-flex justify-content-center">
+        <h1 style="top: 90px">Welcome to course library</h1>
     </div>
-</div>
-@*<p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>*@
+    <div class="d-flex justify-content-center">
+        <a asp-controller="Course" asp-action="List">
+            <i class="fas fa-book-reader h1" id="book-reader" onmouseover="changeToBlueColor()" onmouseout="changeToBlackColor()"></i>
+        </a>
+        </div>
+
+<style>
+    img:hover {
+        animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+        transform: translate3d(0, 0, 0);
+        backface-visibility: hidden;
+        perspective: 1000px;
+    }
+
+    @@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+    }
+</style>

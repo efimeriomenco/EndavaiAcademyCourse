@@ -1,8 +1,35 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20210525173056_Added category.cs" />
+    <Compile Remove="Migrations\20210525173056_Added category.Designer.cs" />
+    <Compile Remove="Migrations\20210605091914_AddedPoints.cs" />
+    <Compile Remove="Migrations\20210605091914_AddedPoints.Designer.cs" />
+    <Compile Remove="Migrations\20210605092459_AddedPoints.cs" />
+    <Compile Remove="Migrations\20210605092459_AddedPoints.Designer.cs" />
+    <Compile Remove="Migrations\20210605093723_AddedPoints.cs" />
+    <Compile Remove="Migrations\20210605093723_AddedPoints.Designer.cs" />
+    <Compile Remove="Migrations\20210607110916_DeletedUserToRoleTable.cs" />
+    <Compile Remove="Migrations\20210607110916_DeletedUserToRoleTable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.14" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.14">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Endava.iAcademy.Domain\Endava.iAcademy.Domain.csproj" />

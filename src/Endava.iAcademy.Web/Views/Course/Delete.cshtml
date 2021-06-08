@@ -1,0 +1,15 @@
+﻿@model int
+
+<h2> Are you sure you want to delete ?</h2>
+
+<form method="post" asp-controller="Course" asp-action="DeletePost">
+    <input type="hidden" value="@Model" name="id" />
+    <button type="submit" class="btn btn-danger">Yes!</button>
+    <a asp-controller="Course" asp-action="List" class="btn btn-default">Cancel</a>
+    @{
+        if (!ViewContext.ModelState.IsValid)
+        {
+            <div asp-validation-summary="All" class="alert alert-danger"></div>
+        }
+    }
+</form>

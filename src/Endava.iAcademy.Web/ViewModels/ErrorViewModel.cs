@@ -1,4 +1,4 @@
-namespace Endava.iAcademy.Web.Models
+namespace Endava.iAcademy.Web.ViewModels
 {
     public class ErrorViewModel
     {
