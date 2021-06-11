@@ -9,25 +9,59 @@
     <text class="text-muted">
         Author: <span style="font-style: oblique">@Model.Author</span> <br />
         Date: <span style="font-style: oblique">@Model.Date.ToShortDateString() </span> <br />
-        Rating: <span style="font-style: oblique; color: limegreen">@Model.Rating</span> <br/>
-        Category <span style="font-style: oblique; color: limegreen">@(Model.CategoryName)</span> <br/>
+        Rating: <span style="font-style: oblique; color: limegreen">@Model.Rating</span> <br />
+        Category <span style="font-style: oblique; color: limegreen">@(Model.CategoryName)</span> <br />
         Price: <span style="font-style: oblique; color: limegreen">@Model.Price$</span>
-       
     </text>
+
+    @{
+        if (!Model.CurrentUserOwnsThisCourse)
+        {
+            <form asp-action="BuyCourse" asp-controller="Course" method="post">
+
+                <input type="hidden" asp-for="@Model.Id" />
+                <button type="submit" class="btn btn-danger m-2">Buy</button>
+            </form>
+        }
+    }
+    @{
+        if (ViewBag.ErrorMessage != null)
+        {
+            <span asp-validation-summary="All" id="course-error-msg" class="text-danger">@ViewBag.ErrorMessage</span>
+        }
+    }
+
     <br /><br />
     <h5>Courses description:</h5>
     <p class="text-muted">@Model.Description</p>
     <h2>Lessons:</h2>
-    @foreach (var lesson in Model.Lessons ??  new List<LessonViewModel>())
+    @foreach (var lesson in Model.Lessons ?? new List<LessonViewModel>())
     {
 
         <h4>@lesson.Title</h4>
         <p class="text-muted">@lesson.Description</p>
-        <iframe width="560" height="315" src="@lesson.Link" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+        if (Model.CurrentUserOwnsThisCourse)
+        {
+            <iframe width="560" height="315" src="@lesson.Link" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        }
+
         <br /><br />
 
     }
-</div>                 
+</div>
 
- 
+@section Scripts
+{
+    <script type="text/javascript">
+        var container = $("#course-error-msg");
+        setTimeout(() => {
+            if (container != null)
+                container.fadeOut(() => {
+                    this.remove();
+                });
+        }, 3000);
+    </script>
+}
+
 

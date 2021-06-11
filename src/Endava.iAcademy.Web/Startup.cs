@@ -30,6 +30,7 @@ namespace Endava.iAcademy.Web
             services.AddDbContext<EndavaiAcademyDbContext>(options => options.UseSqlServer(connection), ServiceLifetime.Transient);
             services.AddTransient<ICourseRepository, SqlCourseRepository>();
             services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<IUsersRepository, UsersRepository>();
             //instalarea configurarii de conexiune
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => //CookieAuthenticationOptions

@@ -3,29 +3,19 @@
 <div class="card-title d-flex justify-content-center">
     <h1>All courses</h1>
 </div>
-<section class="d-flex justify-content-around select-option">
-    <div>
-        <form id="sort-by-form w-100" method="get" asp-controller="Course" asp-action="List">
-            <div class="form-group ">
-                <label for="sortBy">Sort by: </label>
-                <select class="form-control" name="sortBy" id="sort-bar">
-                    <option value="@nameof(Endava.iAcademy.Domain.Course.Title)">Title</option>
-                    <option value="@nameof(Endava.iAcademy.Domain.Course.Rating)">Rating</option>
-                </select>
-            </div>
-        </form>
-    </div>
+<section class="select-option">
     <div>
         <form id="sort-by-form" method="get" asp-controller="Course" asp-action="List">
             <div class="form-group ">
-                <label for="sortBy">Choose your category: </label>
-                <select class="form-control" name="sortBy" id="sort-bar">
+                <label for="sortBy">Sort by: </label>
+                <select class="form-control w-25" name="sortBy" id="sort-bar">
                     <option value="@nameof(Endava.iAcademy.Domain.Course.Title)">Title</option>
                     <option value="@nameof(Endava.iAcademy.Domain.Course.Rating)">Rating</option>
                 </select>
             </div>
         </form>
     </div>
+
 </section>
 
 

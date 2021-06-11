@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Endava.iAcademy.Domain;
 using Endava.iAcademy.Repository;
+using Endava.iAcademy.Repository.Repositories;
 using Endava.iAcademy.Web.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -15,10 +16,11 @@ namespace Endava.iAcademy.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private EndavaiAcademyDbContext db;
-        public AccountController(EndavaiAcademyDbContext context)
+        private readonly IUsersRepository _usersRepository;
+
+        public AccountController(IUsersRepository usersRepository)
         {
-            db = context;
+            _usersRepository = usersRepository;
         }
 
 
@@ -39,14 +41,10 @@ namespace Endava.iAcademy.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // TODO: Extract this into IUsersRepository.CheckUserPassword
-                User user = await db.Users
-                    .Include(x => x.Role)
-                    .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
-
+                var user = _usersRepository.CheckUserPassword(model.Password, model.Email);
                 if (user != null)   
                 {
-                    await Authenticate(model.Email, user.Role); // autentificare
+                    await Authenticate(model.Email, user.Id, user.Role); // autentificare
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -65,27 +63,21 @@ namespace Endava.iAcademy.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                // TODO: Extract this into IUsersRepository.GetUserByEmail
-                User user = await db.Users
-                    .Include(x => x.Role)
-                    .FirstOrDefaultAsync(u => u.Email == model.Email);
+                var user = _usersRepository.GetUserByEmail(model.Email);
 
                 if (user == null)
                 {
-                    // adaugam userul in db
-                    // TODO: Extract this into IUsersRepository.RegisterUser
-                    var domainUser = new User
+                    var userToRegister = new User()
                     {
-                        RoleId = RolesConstants.Customer.Id, // Admin by default
                         Email = model.Email,
-                        Password = model.Password,
+                        Password =  model.Password,
+                        RoleId = RolesConstants.Customer.Id,
                     };
-                    
-                    db.Users.Add(domainUser);
 
-                    await db.SaveChangesAsync();
+                    // adaugam userul in db
+                    var domainUser = _usersRepository.RegisterUser(userToRegister);
 
-                    await Authenticate(model.Email, user.Role); // autentificare
+                    await Authenticate(model.Email, domainUser.Id, domainUser.Role); // autentificare
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -94,7 +86,7 @@ namespace Endava.iAcademy.Web.Controllers
             }
             return View(model);
         }
-        private async Task Authenticate(string userName, Role role)
+        private async Task Authenticate(string userName, int userId, Role role)
         {
             // CLAIM - obiectul claim ne ofera o informatie oarecare despre user , ce putem sa o folosim pentru autorizarea in aplicatie.
             //Issuer: "Proprietare" sau denumirea sistemului , care ne-a dat claim
@@ -112,13 +104,14 @@ namespace Endava.iAcademy.Web.Controllers
             };
             
             claims.Add(new Claim(ClaimsIdentity.DefaultRoleClaimType, role.Name));
+            claims.Add(new Claim(ClaimTypes.PrimarySid, userId.ToString()));
 
             // cream obiectul ClaimsIdentity
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            ClaimsIdentity identity = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
             // instalam Authentification cookie
             //Obiectul creat ClaimsIdentity se transmite in constructorul ClaimsPrincipal. Care defapt obiectul ClaimsPrincipal o sa ne arate aceea
             //ce noi v-om obtine in orice controller prin HttpContext.User.
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
         }
 
         public async Task<IActionResult> Logout()

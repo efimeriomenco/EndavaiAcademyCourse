@@ -6,23 +6,23 @@
     <input type="hidden" asp-for="@Model.Rating">
 
     <div class="form-group">
-        <label asp-for="@Model.Title"></label>
+        <label asp-for="@Model.Title" class="font-weight-bold"></label>
         <input asp-for="@Model.Title" class="form-control" />
         <span class="text-danger" asp-validation-for="@Model.Title"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Author"></label>
+        <label asp-for="@Model.Author" class="font-weight-bold"></label>
         <input asp-for="@Model.Author" class="form-control" />
         <span class="text-danger" asp-validation-for="@Model.Author"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Price"></label>
+        <label asp-for="@Model.Price" class="font-weight-bold"></label>
         <input asp-for="@Model.Price" class="form-control" />
         <span class="text-danger" asp-validation-for="@Model.Price"></span>
     </div>
     <div class="">
         <div class="form-group ">
-            <label asp-for="SelectedCategoryId" class="control-label">Category</label>
+            <label asp-for="SelectedCategoryId"  class="control-label font-weight-bold">Category</label>
             <select asp-for="SelectedCategoryId" asp-items="Model.Categories" class="form-control"></select>
             <span asp-validation-for="SelectedCategoryId" class="text-danger"></span>
         </div>
@@ -34,13 +34,13 @@
         </div>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Date">Input the date:</label>
+        <label asp-for="@Model.Date" class="font-weight-bold">Input the date:</label>
         <input type="date" class="form-control" asp-for="@Model.Date">
         <span class="text-danger" asp-validation-for="@Model.Date"></span>
     </div>
     <div class="form-group">
-        <label asp-for="@Model.Description">Input the description:</label>
-        <textarea  class="form-control" asp-for="@Model.Description"></textarea>
+        <label asp-for="@Model.Description" class="font-weight-bold">Input the description:</label>
+        <textarea  class="form-control mb-3" rows="7" asp-for="@Model.Description"></textarea>
 
         <span class="text-danger" asp-validation-for="@Model.Description"></span>
     </div>
@@ -54,7 +54,6 @@
         }
     }
 
-  
 </form>
 
 @section Scripts

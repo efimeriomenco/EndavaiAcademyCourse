@@ -37,7 +37,7 @@
         </div>
         <div class="card-buy row">
             <div>
-                <button type="submit" class="btn alert-danger font-italic">Buy</button>
+                <a type="submit" class="btn alert-danger font-italic" asp-controller="Course" asp-action="Details" asp-route-id="@Model.Id">Buy</a>
             </div>
             <div>
                 <p class="m-2">@Model.Price$</p>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Endava.iAcademy.Domain;
 using Endava.iAcademy.Repository;
 using Endava.iAcademy.Repository.Repositories;
@@ -8,10 +9,13 @@ using Endava.iAcademy.Web.ViewModels;
 using Endava.iAcademy.Web.ViewModels.Courses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace Endava.iAcademy.Web.Controllers
 {
@@ -19,11 +23,13 @@ namespace Endava.iAcademy.Web.Controllers
     {
         private readonly ICourseRepository _courseRepository;
         private readonly ICategoryRepository _categoryRepository;
-        
-        public CourseController(ICourseRepository courseRepository, ICategoryRepository categoryRepository )
+        private readonly IUsersRepository _usersRepository;
+
+        public CourseController(ICourseRepository courseRepository, ICategoryRepository categoryRepository, IUsersRepository usersRepository )
         {
             _courseRepository = courseRepository;
             _categoryRepository = categoryRepository;
+            _usersRepository = usersRepository;
         }
    
         [HttpGet]
@@ -74,9 +80,7 @@ namespace Endava.iAcademy.Web.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Edit(int id)
         {
-            
             Course existingCourse = _courseRepository.GetById(id);
-
 
             CourseEditViewModel model = new CourseEditViewModel()
             {
@@ -89,16 +93,9 @@ namespace Endava.iAcademy.Web.Controllers
 
             var categories = _categoryRepository.GetAll();
             
-            // varianta 1
             model.Categories = categories
                 .Select(category =>new SelectListItem(category.Title, category.Id.ToString()))
                 .ToList();
-
-            // varianta 2
-     /*       foreach (var category in categories)
-            {
-                model.Categories.Add(new SelectListItem(category.Title, category.Id.ToString()));
-            }*/
 
             return View(model);
         }
@@ -106,11 +103,29 @@ namespace Endava.iAcademy.Web.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public IActionResult Edit(Course course)
+        public IActionResult Edit(CourseEditViewModel model)
         {
-            _courseRepository.Update(course);
+            Course updatedCourse = new Course()
+            {
+                Id = model.Id,
+                Title = model.Title,
+                Price = model.Price,
+                Rating = model.Rating,
+                Date = model.Date,
+                CategoryId = model.SelectedCategoryId,
+                Description = model.Description,
+                Author = model.Author
+            };
+
+            _courseRepository.Update(updatedCourse);
+            var categories = _categoryRepository.GetAll();
+
+            model.Categories = categories
+                .Select(category => new SelectListItem(category.Title, category.Id.ToString()))
+                .ToList();
             ViewBag.HasSucceeded = true;
-            return View();
+            //return RedirectToAction("Edit", "Course");
+            return View(model);
         }
 
         [HttpGet]
@@ -128,7 +143,6 @@ namespace Endava.iAcademy.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public IActionResult Create(CreateCourseViewModel courseViewModel)
         {
             try
@@ -162,29 +176,79 @@ namespace Endava.iAcademy.Web.Controllers
             return View(courseViewModel);
         }
 
+        [HttpPost]
+        [Authorize]
+        public IActionResult BuyCourse(int id)
+        {
+            var currentUserIdClaim = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.PrimarySid)?.Value;
+            if (string.IsNullOrEmpty(currentUserIdClaim))
+                return BadRequest("Could not find user id");
 
+            var currentUserId = int.Parse(currentUserIdClaim);
+
+            try
+            {
+                _usersRepository.PurchaseCourse(currentUserId, id);
+
+                return RedirectToAction("Details", "Course", new {id = id});
+            }
+            catch (Exception e)
+            {
+                //ModelState.AddModelError("All", e.Message);
+                ViewBag.ErrorMessage = e.Message;
+
+                var course = _courseRepository.GetById(id);
+                var currentUserOwnsCourse = _usersRepository.DoesUserOwnTheCourse(currentUserId, course.Id);
+                var courseViewModel = new CourseDetailsViewModel()
+                {
+                    Id = course.Id,
+                    Title = course.Title,
+                    Description = course.Description,
+                    Date = course.Date,
+                    Author = course.Author,
+                    Rating = course.Rating,
+                    Price = course.Price,
+                    CurrentUserOwnsThisCourse = currentUserOwnsCourse,
+                    CategoryName = course.Category?.Title ?? "No category",
+                    Lessons = course.Lessons.Select(lesson => new LessonViewModel()
+                    {
+                        Title = lesson.Title,
+                        Description = lesson.Description,
+                        Link = lesson.Link
+                    })
+                };
+
+                return View("~/Views/Course/Details.cshtml", courseViewModel);
+            }
+        }
+        [HttpGet]
+        [Authorize]
         public IActionResult Details(int? id)
         {
             if (!id.HasValue)
-            {
                 return NotFound();
-            }
 
             var course = _courseRepository.GetById(id.Value);
-
             if (course == null)
-            {
                 return NotFound();
-            }
+
+            var currentUserIdClaim = this.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.PrimarySid)?.Value;
+            if (string.IsNullOrEmpty(currentUserIdClaim))
+                return BadRequest("Could not find user id");
+
+            var currentUserId = int.Parse(currentUserIdClaim);
+            var currentUserOwnsCourse = _usersRepository.DoesUserOwnTheCourse(currentUserId, course.Id);
 
             var courseViewModel = new CourseDetailsViewModel()
             {
+                Id = course.Id,
                 Title = course.Title,
                 Description = course.Description,
                 Date = course.Date,
                 Author = course.Author,
                 Rating = course.Rating,
                 Price = course.Price,
+                CurrentUserOwnsThisCourse = currentUserOwnsCourse, 
                 CategoryName = course.Category?.Title ?? "No category",
                 Lessons = course.Lessons.Select(lesson => new LessonViewModel()
                 {
@@ -193,7 +257,7 @@ namespace Endava.iAcademy.Web.Controllers
                     Link = lesson.Link
                 })
             };
-
+            
             return View(courseViewModel);
         }
 
